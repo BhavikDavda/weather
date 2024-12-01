@@ -30,19 +30,11 @@ class _SplashScreenState extends State<SplashScreen> {
             Center(
               child: Image.asset(
                 "assets/images/weather_icon.png",
-                height: 300,
-                width: 300,
+                height: 350,
+                width: 350,
               ),
             ),
-            SizedBox(height: 100,),
-            const Text(
-              "Weather App",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+
           ],
         ),
         decoration: const BoxDecoration(
@@ -51,8 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             end: Alignment.bottomRight,
             transform: GradientRotation(Checkbox.width / 2),
             colors: [
-              Color(0xff2279ec),
-              Color(0xff72defb),
+              Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364),
 
             ],
           ),

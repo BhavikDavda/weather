@@ -54,7 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         foregroundColor: Colors.white,
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
         title: Text("Weather App", style: GoogleFonts.roboto()),
       ),
       body: _weatherDetails == null
@@ -113,10 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 250,
                             width: double.infinity ,
                             decoration: BoxDecoration(
-                                color: Colors.blueAccent.shade700.withOpacity(0.1),
+                                color: Colors.grey.shade700.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                  color: Colors.blueAccent.shade700,
+                                  color: Colors.grey.shade700,
                                 )
                             ),
                             child: Column(
@@ -154,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           borderRadius:
                                           BorderRadius.circular(10),
                                           border: Border.all(
-                                            color: Colors.blueAccent,
+                                            color: Colors.grey,
                                           )),
                                       child: Column(
                                         mainAxisAlignment:
@@ -190,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                  color: Colors.blueAccent,
+                                  color: Colors.grey,
                                 )),
                             child: FutureBuilder<Map<String, dynamic>>(
                                 future: _weatherDetails,
@@ -258,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                     BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.blueAccent,
+                                      color: Colors.grey,
                                     )),
                                 child: Padding(
                                   padding:
@@ -296,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                     BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.blueAccent,
+                                      color: Colors.grey,
                                     )),
                                 child: Padding(
                                   padding:
@@ -335,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                     BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.blueAccent,
+                                      color: Colors.grey,
                                     )),
                                 child: Padding(
                                   padding:
@@ -377,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                     BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.blueAccent,
+                                      color: Colors.grey,
                                     )),
                                 child: Padding(
                                   padding:
@@ -415,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                     BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.blueAccent,
+                                      color: Colors.grey,
                                     )),
                                 child: Padding(
                                   padding:
@@ -453,7 +461,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                     BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.blueAccent,
+                                      color: Colors.grey,
                                     )),
                                 child: Padding(
                                   padding:
