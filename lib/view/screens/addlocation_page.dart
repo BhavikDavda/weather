@@ -102,12 +102,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
             ),
           ),
         ),
-        title: Text("City Weather Search", style: GoogleFonts.roboto()),
+        title: Text(
+          "City Weather Search",
+          style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.grey.shade100, Colors.grey.shade400],
+            colors: [Colors.white, Colors.grey.shade300],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -120,20 +123,21 @@ class _WeatherScreenState extends State<WeatherScreen> {
               Text(
                 "Check Weather of Any City",
                 style: GoogleFonts.roboto(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade800),
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade800,
+                ),
               ),
               SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 10,
+                      color: Colors.grey.shade400,
+                      blurRadius: 15,
                       spreadRadius: 2,
                       offset: Offset(0, 5),
                     ),
@@ -149,23 +153,27 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        prefixIcon: Icon(Icons.location_city),
                       ),
                     ),
                     SizedBox(height: 10),
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       onPressed: _searchCity,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade700,
+                        backgroundColor: Colors.grey,
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                      child: Text(
+                      icon: Icon(Icons.search, color: Colors.black),
+                      label: Text(
                         "Search",
-                        style:TextStyle(
-                          color: Colors.black,
+                        style: GoogleFonts.roboto(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16
-                        )
-
-
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ],
@@ -175,20 +183,27 @@ class _WeatherScreenState extends State<WeatherScreen> {
               Text(
                 "Current Weather:",
                 style: GoogleFonts.roboto(
-                    fontSize: 18, fontWeight: FontWeight.bold,color: Colors.black),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
               SizedBox(height: 10),
               Container(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade500,
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Center(
                   child: Text(
                     _result.isNotEmpty ? _result : "No data fetched yet.",
-                    style: GoogleFonts.roboto(fontSize: 16,color: Colors.black),
+                    style: GoogleFonts.roboto(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -198,8 +213,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
               Text(
                 "Stored Weather Data:",
                 style: GoogleFonts.roboto(
-                    fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
               SizedBox(height: 10),
               Expanded(
@@ -212,9 +229,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         .trim();
                     return Card(
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       child: ListTile(
+                        leading: Icon(Icons.cloud, color: Colors.blueAccent),
                         title: Text(
                           _storedData[index],
                           style: GoogleFonts.roboto(fontSize: 14),
