@@ -148,7 +148,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     TextField(
                       controller: _cityController,
                       decoration: InputDecoration(
-                        labelText: "Enter City Name",
+                        labelText: "Search City Name",
                         labelStyle: GoogleFonts.roboto(),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),

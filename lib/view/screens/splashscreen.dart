@@ -29,21 +29,19 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Center(
               child: Image.asset(
-                "assets/images/weather_icon.png",
-                height: 350,
-                width: 350,
+                "assets/images/a0e28308aec61e34cd8a60daa918c9fc.png",
+                height: 300,
+                width: 300,
               ),
             ),
-
           ],
         ),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            transform: GradientRotation(Checkbox.width / 2),
             colors: [
-              Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364),
+              Color(0xFF0F2027), Color(0xFFFFFFFF), Color(0xFF2C5364),
 
             ],
           ),

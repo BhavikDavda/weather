@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const Center(
                 child: Icon(
-                  Icons.location_on_outlined,
+                  Icons.location_city,
                   size: 70,
                 ),
               ),
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10,
               ),
               Text(
-                "Please Add City",
+                "Please Anter City Name",
                 style: GoogleFonts.roboto(fontSize: 20),
               )
             ],
@@ -105,42 +105,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       const SizedBox(height: 20,),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("🏢 ${data['location']['name']}",
-                              style: GoogleFonts.roboto(fontSize: 20)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(" ${data['location']['name']}",
+                                style: GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 20,),
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            height: 250,
-                            width: double.infinity ,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade700.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.grey.shade700,
-                                )
-                            ),
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                      "${data['current']['temp_c'].toInt()}°",
-                                      style:
-                                      GoogleFonts.roboto(fontSize: 100)),
-                                  Text(
-                                    "${data['current']['condition']['text']}°C ${data['current']['feelslike_c']}°C Feel Like ${data['current']['feelslike_f']}°C" ??
-                                        "",
-                                    style: GoogleFonts.roboto(fontSize: 16),
-                                  ),
-                                ]),
-                          ),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                    "${data['current']['temp_c'].toInt()}°",
+                                    style:
+                                    GoogleFonts.roboto(fontSize: 100)),
+                                Text(
+                                  "${data['current']['condition']['text']}°C ${data['current']['feelslike_c']}°C Feel Like ${data['current']['feelslike_f']}°C" ??
+                                      "",
+                                  style: GoogleFonts.roboto(fontSize: 16),
+                                ),
+                              ]),
                           const SizedBox(height: 30,),
                           const SizedBox(
                             height: 20,
@@ -175,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           const Icon(
                                             Icons.light_mode,
-                                            color: Colors.yellow,
+                                            color: Colors.orange,
                                           ),
                                           Text(
                                             "${data['current']['humidity']}°" ??
@@ -233,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   const Icon(Icons.light_mode,
                                                       color:
-                                                      Colors.yellow,
+                                                      Colors.orange,
                                                       size: 20),
                                                   Text(
                                                     "${data['current']['temp_c'].toInt()} / ${data['current']['temp_f'].toInt()}°C" ??
