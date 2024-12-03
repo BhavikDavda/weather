@@ -12,7 +12,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   final TextEditingController _cityController = TextEditingController();
   String _result = "";
   List<String> _storedData = [];
-  bool _isLoading = false; // Track loading state
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
     try {
       setState(() {
-        _isLoading = true; // Show loading indicator
+        _isLoading = true; 
       });
 
       Map<String, dynamic> cityData = await getCity(city);
@@ -87,19 +87,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
       });
     } finally {
       setState(() {
-        _isLoading = false; // Hide loading indicator
+        _isLoading = false; 
       });
     }
   }
 
   void _navigateToDetails(String cityName) async {
     setState(() {
-      _isLoading = true; // Show loading indicator
+      _isLoading = true; 
     });
 
-    await Future.delayed(Duration(seconds: 2)); // Simulate a delay for loading
+    await Future.delayed(Duration(seconds: 2)); 
     setState(() {
-      _isLoading = false; // Hide loading indicator
+      _isLoading = false; 
     });
 
     Navigator.of(context).pushNamed("/", arguments: cityName);
@@ -281,7 +281,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               ),
             ),
           ),
-          if (_isLoading) // Show loading overlay
+          if (_isLoading) 
             Container(
               color: Colors.black.withOpacity(0.5),
               child: Center(
