@@ -8,11 +8,11 @@ class WeatherScreen extends StatefulWidget {
   @override
   _WeatherScreenState createState() => _WeatherScreenState();
 }
-
 class _WeatherScreenState extends State<WeatherScreen> {
   final TextEditingController _cityController = TextEditingController();
   String _result = "";
   List<String> _storedData = [];
+  bool _isLoading = false; // Track loading state
 
   @override
   void initState() {
@@ -68,6 +68,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
     String city = _cityController.text.trim();
 
     try {
+      setState(() {
+        _isLoading = true; // Show loading indicator
+      });
+
       Map<String, dynamic> cityData = await getCity(city);
 
       String cityName = cityData['location']['name'];
@@ -81,10 +85,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
       setState(() {
         _result = e.toString();
       });
+    } finally {
+      setState(() {
+        _isLoading = false; // Hide loading indicator
+      });
     }
   }
 
-  void _navigateToDetails(String cityName) {
+  void _navigateToDetails(String cityName) async {
+    setState(() {
+      _isLoading = true; // Show loading indicator
+    });
+
+    await Future.delayed(Duration(seconds: 2)); // Simulate a delay for loading
+    setState(() {
+      _isLoading = false; // Hide loading indicator
+    });
+
     Navigator.of(context).pushNamed("/", arguments: cityName);
   }
 
@@ -107,159 +124,171 @@ class _WeatherScreenState extends State<WeatherScreen> {
           style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.white, Colors.grey.shade300],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Check Weather of Any City",
-                style: GoogleFonts.roboto(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade800,
-                ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.white, Colors.grey.shade300],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade400,
-                      blurRadius: 15,
-                      spreadRadius: 2,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _cityController,
-                      decoration: InputDecoration(
-                        labelText: "Search City Name",
-                        labelStyle: GoogleFonts.roboto(),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        prefixIcon: Icon(Icons.location_city),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton.icon(
-                      onPressed: _searchCity,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      icon: Icon(Icons.search, color: Colors.black),
-                      label: Text(
-                        "Search",
-                        style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                "Current Weather:",
-                style: GoogleFonts.roboto(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade500,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Center(
-                  child: Text(
-                    _result.isNotEmpty ? _result : "No data fetched yet.",
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Check Weather of Any City",
                     style: GoogleFonts.roboto(
-                      fontSize: 16,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          blurRadius: 15,
+                          spreadRadius: 2,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: _cityController,
+                          decoration: InputDecoration(
+                            labelText: "Search City Name",
+                            labelStyle: GoogleFonts.roboto(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            prefixIcon: Icon(Icons.location_city),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        ElevatedButton.icon(
+                          onPressed: _searchCity,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          icon: Icon(Icons.search, color: Colors.black),
+                          label: Text(
+                            "Search",
+                            style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "Current Weather:",
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Divider(),
-              SizedBox(height: 10),
-              Text(
-                "Stored Weather Data:",
-                style: GoogleFonts.roboto(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _storedData.length,
-                  itemBuilder: (context, index) {
-                    String cityName = _storedData[index]
-                        .split(",")[0]
-                        .split(":")[1]
-                        .trim();
-                    return Card(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: ListTile(
-                        leading: Icon(Icons.cloud, color: Colors.blueAccent),
-                        title: Text(
-                          _storedData[index],
-                          style: GoogleFonts.roboto(fontSize: 14),
+                  SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.all(12.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade500,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        _result.isNotEmpty ? _result : "No data fetched yet.",
+                        style: GoogleFonts.roboto(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Divider(),
+                  SizedBox(height: 10),
+                  Text(
+                    "Stored Weather Data:",
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _storedData.length,
+                      itemBuilder: (context, index) {
+                        String cityName = _storedData[index]
+                            .split(",")[0]
+                            .split(":")[1]
+                            .trim();
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
                           ),
-                          onPressed: () => _deleteData(index),
-                        ),
-                        onTap: () {
-                          _navigateToDetails(cityName);
-                        },
-                      ),
-                    );
-                  },
-                ),
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ListTile(
+                            leading: Icon(Icons.cloud, color: Colors.blueAccent),
+                            title: Text(
+                              _storedData[index],
+                              style: GoogleFonts.roboto(fontSize: 14),
+                            ),
+                            trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () => _deleteData(index),
+                            ),
+                            onTap: () {
+                              _navigateToDetails(cityName);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+          if (_isLoading) // Show loading overlay
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        ],
       ),
     );
   }
